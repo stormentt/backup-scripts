@@ -1,0 +1,23 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+    - name: tar everything
+      image: alpine:latest
+      pull: never
+      commands:
+        - tar -czf backup-scripts.tar.gz ./
+
+    - name: push to gitea
+      image: plugins/gitea-release
+      when:
+        event: tag
+      settings:
+        api_key:
+            from_secret: gitea_release_key
+        base_url: http://gitea_app_1:3000
+        files: backup-scripts.tar.gz
+        checksum:
+            - sha256
+
