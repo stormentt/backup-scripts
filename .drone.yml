@@ -4,7 +4,7 @@ name: default
 
 steps:
     - name: tar everything
-      image: _/alpine:latest
+      image: library/alpine:latest
       pull: never
       commands:
         - tar -czf backup-scripts.tar.gz ./
