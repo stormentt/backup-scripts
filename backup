@@ -1,0 +1,23 @@
+#!/bin/bash
+source ./lib
+source ./env 
+
+CONTAINERS=$(docker ps -q)
+if [ ! -z "$CONTAINERS" ]; then
+	docker stop ${CONTAINERS}
+fi
+
+if [ -z "$LOCAL_DIR" ] || [ -z "$STAGING_DIR" ]; then
+	echo "LOCAL_DIR OR STAGING_DIR is empty!!!"
+	exit 1
+fi
+
+rsync --archive --progress --delete ${LOCAL_DIR}/ ${STAGING_DIR}/
+
+if [ ! -z "$CONTAINERS" ]; then
+	docker start ${CONTAINERS}
+fi
+
+backup 2>&1
+
+source ./unset-env

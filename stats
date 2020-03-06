@@ -1,0 +1,11 @@
+#!/bin/bash
+source ./env 
+source ./lib
+
+stats
+
+source ./env-laptop
+
+stats
+
+source ./unset-env

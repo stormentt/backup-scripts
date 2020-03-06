@@ -1,0 +1,63 @@
+backup() {
+	# Remove files older than 90 days
+	duplicity \
+		--sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		remove-older-than 90D --force \
+		--gpg-options "$GPG_OPTIONS" \
+		--gpg-binary gpg2 \
+		--progress \
+		${B2_URL}
+
+	# Perform the backup, make a full backup if it's been over 14 days
+	duplicity \
+		--sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		--full-if-older-than 14D \
+		--gpg-options "$GPG_OPTIONS" \
+		--gpg-binary gpg2 \
+		--progress \
+		${STAGING_DIR} ${B2_URL}
+
+	# Cleanup failures
+	duplicity \
+		cleanup --force \
+		--sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		--gpg-options "$GPG_OPTIONS" \
+		--gpg-binary gpg2 \
+		--progress \
+		${B2_URL}
+
+	# Show collection-status
+	duplicity collection-status \
+		--sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		--gpg-options "$GPG_OPTIONS" \
+		--gpg-binary gpg2 \
+		--progress \
+		${B2_URL}
+}
+
+list() {
+	duplicity list-current-files \
+		 --sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		  --gpg-options "$GPG_OPTIONS" \
+		  --gpg-binary gpg2 \
+		  --progress \
+		  ${B2_URL}
+}
+
+stats() {
+	duplicity collection-status \
+		 --sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		  --gpg-options "$GPG_OPTIONS" \
+		  --gpg-binary gpg2 \
+		  --progress \
+		  ${B2_URL}
+}
+
+restore() {
+	duplicity \
+		 --sign-key $SGN_KEY --encrypt-key $ENC_KEY \
+		  --gpg-options "$GPG_OPTIONS" \
+		  --gpg-binary gpg2 \
+		  --progress \
+		   ${B2_URL} ${STAGING_DIR}
+}

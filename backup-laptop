@@ -1,0 +1,7 @@
+#!/bin/bash
+source ./lib
+source ./env-laptop
+
+backup
+
+source ./unset-env

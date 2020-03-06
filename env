@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Backblaze B2 configuration variables
+B2_ACCOUNT=""
+B2_KEY=""
+B2_BUCKET=""
+B2_DIR=""
+B2_URL="b2://${B2_ACCOUNT}:${B2_KEY}@${B2_BUCKET}/${B2_DIR}"
+
+# Local directory to backup
+LOCAL_DIR=""
+STAGING_DIR=""
+
+# GPG key (last 8 characters)
+ENC_KEY=""
+SGN_KEY=""
+
+export PASSPHRASE=""
+export SIGN_PASSPHRASE=""
+
+GPG_OPTIONS="--pinentry-mode=loopback"

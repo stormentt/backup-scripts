@@ -1,0 +1,11 @@
+# Unset variables
+unset B2_ACCOUNT
+unset B2_KEY
+unset B2_BUCKET
+unset B2_DIR
+unset B2_URL
+unset LOCAL_DIR
+unset ENC_KEY
+unset SGN_KEY
+unset PASSPHRASE
+unset SIGN_PASSPHRASE 
