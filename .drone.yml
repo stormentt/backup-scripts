@@ -6,6 +6,8 @@ steps:
     - name: tar everything
       image: alpine:latest
       pull: never
+      settings:
+        registry: registry.hub.docker.com
       commands:
         - tar -czf backup-scripts.tar.gz ./
 
@@ -20,4 +22,3 @@ steps:
         files: backup-scripts.tar.gz
         checksum:
             - sha256
-
