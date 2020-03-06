@@ -4,10 +4,8 @@ name: default
 
 steps:
     - name: tar everything
-      image: alpine:latest
+      image: _/alpine:latest
       pull: never
-      settings:
-        registry: registry.hub.docker.com
       commands:
         - tar -czf backup-scripts.tar.gz ./
 
